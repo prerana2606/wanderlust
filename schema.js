@@ -1,20 +1,23 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
-module.exports.listingSchema = Joi.object({  // post validation for new creation
-
-        title: Joi.string().min(3).required(),
-        description: Joi.string().required(),
-        image:Joi.object({
-                url: Joi.string().allow('', null), // at the end mongoose will add the default value before inserting in db, till that time null or empty value is allowed.
-                filename:Joi.string().allow("",null)
+module.exports.listingSchema = Joi.object({
+    listing : Joi.object({
+        title : Joi.string().required(),
+        description : Joi.string().required(),
+        price : Joi.number().required().min(0),
+        image : Joi.object({
+            filename: Joi.string().default("defaultImage"),
+            url: Joi.string().default("https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhY2glMjBob3VzZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"),
         }),
-        price: Joi.number().min(0).required(),
-        location: Joi.string().required(),
-        country: Joi.string().required(),
+        location : Joi.string().required(),
+        country : Joi.string().required(),
+        category: Joi.string().valid('Trending', 'Rooms', 'Iconic_Cities', 'Mountains', 'Castles', 'Amazing_Pool', 'Camping', 'Farms', 'Arctic', 'Domes', 'House_Boats'),
+    }).required()
+});
 
-}).required()
-
-module.exports.commentSchema = Joi.object({  // comments validation 
-        rating: Joi.number().min(1).max(5).required(),
-        comment: Joi.string().required(),
-}).required()
+module.exports.reviewSchema = Joi.object({
+    review: Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        comment: Joi.string().required()
+    }).required()
+});

@@ -1,46 +1,42 @@
 const mongoose = require("mongoose");
-const review = require("./reviews")
-const user = require("./user")
-const listingSchema = new mongoose.Schema({
-    title:{
-        type:String
+const Schema = mongoose.Schema;
+const Review = require("./review.js");
+
+const listingSchema = new Schema({
+    title: {
+      type: String,
+      required: true,
     },
-    description:{
-        type:String
-    },  
-    image:{
-        url:String,
-        filename:String
+    description: String,
+    image: {
+      url: String,
+      filename: String
     },
-    price:{
-        type:Number
-    },
-    location:{
-        type:String
-    },
-    country:{
-        type:String
-    },
-    reviews:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"review"
-        },
+    price: Number,
+    location: String,
+    country: String,
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      }
     ],
-    owner:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User" // here, have to include the name of the model itself not the file imported.
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
+    category: {
+      type: String,
+      enum: ['Trending', 'Rooms', 'Iconic_Cities', 'Mountains', 'Castles', 'Amazing_Pool', 'Camping', 'Farms', 'Arctic', 'Domes', 'House_Boats'],
     }
-})
+  });
 
-
-// to delete all the reviews once the listing is deleted
-listingSchema.post("findOneAndDelete",async(listing)=>{    // handling deletion using maongoose middleware
-    if(listing){
-        await review.deleteMany({_id: {$in:listing.reviews}})
-    }
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if(listing) {
+    await Review.deleteMany({_id: {$in: listing.reviews}});
+  }
 });
 
-const listing = mongoose.model("listing",listingSchema);
+const Listing = mongoose.model("Listing", listingSchema);
 
-module.exports=listing;
+module.exports = Listing;

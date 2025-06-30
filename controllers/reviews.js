@@ -1,20 +1,28 @@
-const listing = require("../models/listing");
-const review = require("../models/reviews");
+const Listing = require("../models/listing");
+const Review = require("../models/review");
 
-module.exports.createReview = async(req,res)=>{
-    const reviewSchema = new review(req.body); // new review created
-    reviewSchema.author=req.user._id //adding author i.e logged in user
-    const reqlisting=await listing.findById(req.params.id) // list where review created with the help of id
-    // console.log(reqlisting)// null when req.params.id failed to get pass from app.js and come to route files. soln-> mergeParams
-    reqlisting.reviews.push(reviewSchema);// error 
-    await reviewSchema.save();
-    await reqlisting.save();
-    res.redirect(`/listings/${req.params.id}`)
-}
+module.exports.createReview = async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    let review=  req.body.review;
+    review.comment = review.comment.trim();
+    let newReview = new Review(review);
+    newReview.author = req.user._id;
+    console.log(newReview);
+    listing.reviews.push(newReview);
+    
+    await newReview.save();
+    await listing.save();
 
-module.exports.destroyReview=async(req,res)=>{
-    let {id,review_id}=req.params;
-    await listing.findByIdAndUpdate(id,{$pull:{review:review_id}});
-    await review.findByIdAndDelete(review_id);
-    res.redirect(`/listings/${id}`)
-}
+    req.flash("success", "Review Created");
+    console.log("new Reveiw saved");
+    res.redirect(`/listings/${listing._id}`);
+};
+
+module.exports.destroyReview = async (req, res) => {
+    let {id, reviewId} = req.params;
+    await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+
+    req.flash("success", "Review Deleted");
+    res.redirect(`/listings/${id}`);
+};

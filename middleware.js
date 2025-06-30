@@ -1,65 +1,56 @@
-const listing = require("./models/listing.js");
-const express = require("express");
-const review =require("./models/reviews.js")
-const {listingSchema}= require("./schema.js") //joi schema
-const {commentSchema} = require("./schema.js") // joi schema
-const expressError = require("./utils/expressError.js");
-module.exports.isLoggedIn = (req,res,next)=>{
-    console.log(req)
-    if (!req.isAuthenticated()){
-        req.session.redirectUrl = req._parsedOriginalUrl.pathname
-        req.flash("errorMsg","Required to login")
-        return res.redirect('/login')
-    }
-    next()
+const Listing = require("./models/listing");
+const Review = require("./models/review.js");
+const ExpressError = require("./utils/ExpressErrors.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
+
+
+
+module.exports.isLoggedIn = (req, res, next) => {
+    // console.log(req.path, "..", req.originalUrl);
+    if(!req.isAuthenticated()) {
+        req.session.redirectUrl = req.originalUrl;
+        req.flash("error", "You must be logged in to create Listing");
+        res.redirect("/login");
+    }else next();
 }
 
-module.exports.saveRedirectUrl = (req,res,next)=>{ // to redirect to the same url
-    if (req.session.redirectUrl){
-        res.locals.redirectUrl = req.session.redirectUrl
+module.exports.saveRedirectUrl = (req, res, next) => {
+    if(req.session.redirectUrl) {
+        res.locals.redirectUrl = req.session.redirectUrl;
     }
-    next()
+    next();
 }
 
-module.exports.authorizeUser =async(req,res,next)=>{
-    let {id}=req.params;
-    let list = await listing.findById(id);
-    console.log(res.locals.currentUser)
-    if (!(res.locals.currentUser && res.locals.currentUser._id.equals(list.owner._id))){
-        req.flash("errorMsg","Only authorized user can do")
-        return res.redirect(`/listings/${id}`)
-    }
-    next() // if same user then further code needs to be run 
-}
-module.exports.authorizeReviewUser=async(req,res,next)=>{
-    let {review_id,id}=req.params;
-    let reviewList = await review.findById(review_id);
-    console.log(reviewList)
-    if (!(res.locals.currentUser && res.locals.currentUser._id.equals(reviewList.author))){
-        req.flash("errorMsg","You are not an authorized user")
-        return res.redirect(`/listings/${id}`)
-    }
-    next()
+module.exports.isOwner = async (req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if(res.locals.currUser && !listing.owner._id.equals(res.locals.currUser._id)){
+        req.flash("error", "You are not the Owner of the listing");
+        return res.redirect(`/listings/${id}`);
+    }else next();
 }
 
-// validating middleware , Middleware Function for Error Handling
-module.exports.validateSchema=(req,res,next)=>{
-    console.log(req.body)
-    let {error} = listingSchema.validate(req.body)  //server side validations using joi schema .The validation is handled by joi.Here, the individual field is checked based on server side schema -> listingSchema and then entered to db based on listing collection.
-    if (error){
-        throw new expressError(400,error)
-    }
-    else{
-        next();
-    }
+module.exports.validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+    if(error) {
+        // let errMsg = error.details.map((el) => el.message).join(", ");
+        throw new ExpressError(400, error);
+    }else next();
 }
-// middleware function for validating comments
-module.exports.validateComment=(req,res,next)=>{
-    console.log(req.body)
-    let {error}=commentSchema.validate(req.body)
-    if(error){
-        throw new expressError(400 ,error)
-    }else{
-        next();
-    }
+
+module.exports.validateReview = (req, res, next) => {
+    let {error} = reviewSchema.validate(req.body);
+    if(error) {
+        // let errMsg = error.details.map((el) => el.message).join(", ");
+        throw new ExpressError(400, error);
+    }else next();
+}
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+    let {id, reviewId} = req.params;
+    let review = await Review.findById(reviewId);
+    if(!review.author._id.equals(res.locals.currUser._id)){
+        req.flash("error", "You are not the Author of the Review");
+        return res.redirect(`/listings/${id}`);
+    }else next();
 }

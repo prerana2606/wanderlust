@@ -1,0 +1,23 @@
+<% layout("layouts/boilerplate")%>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>SignUp on Travajo</h2>
+        <form method="post" action="/signup" novalidate class="needs-validation">
+            <div class="mb-3">
+                <label for="username" class="form-lable">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+                <div class="invalid-feedback">Username should be valid</div>
+                <div class="valid-feedback">Nice name</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-lable">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-lable">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button class="btn btn-dark mb-3 add-btn">Sign Up</button>
+        </form>
+    </div>
+</div>

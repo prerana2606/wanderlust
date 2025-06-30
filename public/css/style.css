@@ -1,139 +1,238 @@
-body{
-    font-family:'Plus Jakarta Sans' !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    flex: 1;
-}
-.container{
-    flex: 1;
-}
-.navbar{
-    height:5rem;
-    border-bottom:2px solid rgb(209, 205, 205);
-}
-.navbar-brand-name{
-    color:#FF385C;
-    font-family: 'Dancing Script';
-    font-size: xx-large;
-    text-decoration: none !important;
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.nav-link{
-    color:black  !important;
-    font-weight: 600;
-}
-.create{
-    color:dodgerblue !important;
-    font-weight: 600;
-}
-.fa-compass{
-    color: #FF385C;
-    font-size: 2rem;
+.container {
+  flex: 1;
 }
 
-/* footer*/
-.footer{
-    background-color: rgb(217, 217, 217);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+/** Navbar **/
+.navbar {
+  height: 5rem;
+  background-color: white;
 }
-.ft-social{
+
+.fa-compass {
+  color: #fe424d;
+  font-size: 2rem;
+}
+
+.nav-link {
+  color: #222222;
+}
+
+.navbar-nav {
+  background-color: white;
+}
+
+.search-btn {
+  background-color: #fe424d;
+  color: white;
+  border-radius: 100px;
+  padding: 0px 1rem;
+  font-size: 0.8rem;
+}
+
+.search-btn i {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+.search-btn:hover {
+  background-color: #fe424d;
+  color: white;
+}
+
+.search-input {
+  border-radius: 100px;
+  padding: 0.5rem 5rem;
+  font-size: 0.8rem;
+}
+
+/* Footer */
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+.f-info {
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.f-info-socials,
+.f-info-links,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.f-info-socials i {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+/* Cards */
+.listing-card {
+  border: none;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-text {
+  font-weight: 400;
+}
+
+.listing-link {
+  text-decoration: none;
+}
+
+/* Card Effect */
+
+.card-img-overlay {
+  opacity: 0;
+  transition: 0.1s all;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+/* New Page */
+
+.add-btn {
+  background-color: #fe424d;
+}
+
+/* Edit page */
+.edit-btn {
+  background-color: #fe424d;
+  border: none;
+}
+
+/* Show Page */
+
+.show-img {
+  height: 50vh;
+  border: none;
+}
+
+.btns {
+  display: flex;
+}
+
+.btns > .btn {
+  margin-right: 1rem;
+  width: 5rem;
+}
+
+/* MAP */
+#map {
+  height: 60vh;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-filter {
+  display: flex;
+  width: 75%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  transition: all 0.2s;
+  transform: scale(0.98);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+}
+.left-filter::-webkit-scrollbar {
+  display: none;
+}
+
+.left-filter.active {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
+}
+
+.right-filter {
+  display: flex;
+  justify-content: right;
+}
+
+.filter,
+.tax-toggle {
+  margin: 1rem 0rem 1rem 0rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 1rem;
+  border-radius: 0.8rem;
+}
+
+.filter {
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.filter:hover {
+  opacity: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.filter .text {
+  font-size: 1ch;
+  text-wrap: nowrap;
+}
+
+.tax-toggle {
+  width: 15rem;
+  padding: 5px 0rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 993px) {
+  .tax-toggle {
+    display: none;
+  }
+  .left-filter {
     width: 100%;
-    text-align: center;
-}
-.ft-terms{
-    width: 100%;
-    text-align: center;
-}
-.company{
-    width:100%;
-    text-align: center;
+  }
 }
 
-/* cards */
-.cards{
-    margin-bottom:1rem  !important;
-}
-.card{
-    margin-top: 2rem;
-    border:none !important;
-
+.tax-info {
+  visibility: hidden;
 }
 
-.card-body{
-    padding: 0px !important;
-    
-}
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-}
-.card-text{
-    font-weight: 400 !important;
-}
-.card-title{
-    font-size: medium;
-}
-
-.listing-link{
-    text-decoration: none !important;
-    color:black;
-}
-
-/* card-effect*/
-.card-img-overlay{
-    opacity: 0;
-}
-.card-img-overlay:hover{
-    opacity: 0.3;
-    background-color: aliceblue;
-}
-/* new page */
-.add{
-    background-color: #FF385C !important;
-    border: none;
-    color:white;
-}
-/* edit page */
-.update{
-    background-color: #FF385C !important;
-    border: none;
-    color:white;
-    border-radius: 0.5rem;
-}
-/* show page */
-.card-img-top{
-    height:30vh!important;
-}
-.card-title{
-    font-size: large !important;
-    font-weight: 800 !important;
-}
-/* .card-bobackground-color: #FF385C !important;
-    border: none;
-    color:white;
-    border-radius: 0.5rem;rd-text{
-    font-size: medium !important;
-    font-weight: 450 !important;
-} */
-.edit,.delete{
-    background-color: #FF385C !important;
-    border: none;
-    color:white;
-    border-radius: 0.5rem;
-}
-
-/* review */
-.review-card{
-    border: 1px solid grey;
-    margin-top: 0.75rem;
-    margin-bottom: 1rem;
-    border-radius: 5px !important;
-}
-.card-body-review{
-    padding:0.5rem;
+.last {
+  justify-self: end;
 }

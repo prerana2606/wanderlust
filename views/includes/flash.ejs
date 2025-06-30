@@ -1,18 +1,12 @@
-
-<%if (successMsg && successMsg.length){%> <!-- here successMsg is true because empty array exist -->
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= successMsg %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
+<% if(success && success.length > 0) { %>
+<div class="alert alert-success alert-dismissible fade show mt-3 col-md-6 offset-md-3" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+<% if(error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show mt-3 col-md-6 offset-md-3" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<%}%>
-
-<%if (errorMsg && errorMsg.length){%> <!-- here successMsg is true because empty array exist -->
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= errorMsg %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-<%}%>
+    <% } %>

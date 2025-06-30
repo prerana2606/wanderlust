@@ -1,0 +1,107 @@
+<% layout("layouts/boilerplate")%>
+
+<div class="filters">
+  <div class="left-filter">
+    <div class="filter" onclick="filterCategory('Trending')">
+      <div class="icon"><i class="fa-solid fa-fire"></i></div>
+      <div class="text">Trending</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Rooms')">
+      <div class="icon"><i class="fa-solid fa-bed"></i></div>
+      <div class="text">Rooms</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Iconic_Cities')">
+      <div class="icon"><i class="fa-solid fa-mountain-city"></i></div>
+      <div class="text">Iconic Cities</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Mountains')">
+      <div class="icon"><i class="fa-solid fa-mountain"></i></div>
+      <div class="text">Mountains</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Castles')">
+      <div class="icon"><i class="fa-brands fa-fort-awesome"></i></div>
+      <div class="text">Castles</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Amazing_Pool')">
+      <div class="icon"><i class="fa-solid fa-person-swimming"></i></div>
+      <div class="text">Amaizing Pool</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Camping')">
+      <div class="icon"><i class="fa-solid fa-campground"></i></div>
+      <div class="text">Camping</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Farms')">
+      <div class="icon"><i class="fa-solid fa-cow"></i></div>
+      <div class="text">Farms</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Arctic')">
+      <div class="icon"><i class="fa-solid fa-snowman"></i></div>
+      <div class="text">Arctic</div>
+    </div>
+    <div class="filter" onclick="filterCategory('Domes')">
+      <div class="icon"><i class="fa-solid fa-igloo"></i></div>
+      <div class="text">Domes</div>
+    </div>
+    <div class="filter" onclick="filterCategory('House_Boats')">
+      <div class="icon"><i class="fa-solid fa-sailboat"></i></div>
+      <div class="text">House Boats</div>
+    </div>
+  </div>
+
+  <div class="right-filter">
+    <div class="tax-toggle">
+      <div class="form-check form-switch form-check-reverse">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault" />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Display total after taxes</label
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+  <% for (let listing of allListings) { %>
+  <a href="/listings/<%=listing._id%>" class="listing-link">
+    <div class="card col listing-card listing-hover-card">
+      <img
+        src="<%=listing.image.url%>"
+        style="height: 20rem"
+        class="card-img-top"
+        alt="listing_image" />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">
+          <b><%= listing.title %></b><br />
+          &#8377;<%= listing.price.toLocaleString("en-IN") %> /night
+          <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+        </p>
+      </div>
+    </div>
+  </a>
+  <% } %>
+</div>
+
+<script type="module">
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  let tax_info = document.querySelectorAll(".tax-info");
+  taxSwitch.addEventListener("click", () => {
+    console.log("clicked");
+    for (const tax of tax_info) {
+      if (tax.style.visibility === "visible") {
+        tax.style.visibility = "hidden";
+      } else tax.style.visibility = "visible";
+    }
+  });
+
+  let filterCategory = (category) => {
+    // Redirect to the specified category
+    window.location.href = `/listings/?category=${encodeURIComponent(
+      category
+    )}`;
+  };
+</script>
