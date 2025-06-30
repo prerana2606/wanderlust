@@ -1,0 +1,134 @@
+<%- layout('/layouts/boilerplate') %>
+<style>
+    .filters{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filter{
+        text-align: center;
+        margin:1.5rem 1.5rem 0 1.5rem;
+        opacity:0.7;
+    }
+    .filter:hover{
+        opacity: 1;
+    }
+    .form-check-label{
+        border:2px solid grey;
+        border-radius: 20px;
+        height:50px;
+        padding:0.7rem 0.3rem 0 0.3rem ;
+        background-color: #6499E9;
+        color:white;
+        margin:1.25rem 0rem 0rem 11rem
+    }
+    .tax{
+        display:none;
+    }
+    input[type='checkbox']{
+        display: none;
+    }
+    
+    @media screen and (max-width:1200px) {
+        .filter-beach,.filter-campground{
+            display:none;
+        }
+        
+    }
+    @media screen and (max-width:990px) {
+        .filter-snowflake,.filter-swimming,.filter-mountain-city{
+            display:none;
+        }
+    }
+    @media screen and (max-width:770px) {
+        .filter-fire{
+            display:none;
+        }
+    }
+ 
+</style>
+<body>
+    <div class="filters">
+        
+        <div class="filter">
+            <div class="filter-fire">
+                <i class="fa-solid fa-fire"></i>
+                <p>Trending</p>
+            </div>
+        </div>
+        <div class="filter">
+            <div class="filter-mountain-city">
+                <i class="fa-solid fa-mountain-city"></i>
+                <p>Iconic Cities</p>
+            </div>
+        </div>
+        <div class="filter">
+            <div class="filter-swimming">
+                <i class="fa-solid fa-person-swimming"></i>
+                <p>Amazing Pools</p>
+            </div>
+        </div>
+        <div class="filter">
+            <div class="filter-snowflake">
+                <i class="fa-solid fa-snowflake"></i>
+                <p>Artic</p>
+            </div>
+        </div>
+        <div class="filter-campground">
+            <div class="filter">
+                <i class="fa-solid fa-campground"></i>
+                <p>Camping</p>
+            </div>
+        </div>
+        <div class="filter">
+            <div class="filter-beach">
+                <i class="fa-solid fa-umbrella-beach"></i>
+                <p>Beaches</p>
+            </div>
+        </div>
+
+        <div class=" tax-info">
+            <input class="form-check-input tax-add" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display Total After Taxes</label>
+        </div>
+            
+       
+       
+    </div>
+    <div class=" cards row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-2  ">
+        <% for (let list of listingData) { %>
+            <a href="/listings/<%=list._id%>" class="listing-link">
+                <div class="card col" style="width: 18rem;">
+                    <img src=<%=list.image.url%> class="card-img-top" style="height:20rem;"alt="...">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                    <b><h5 class="card-title"><%=list.title%></h5></b>
+                    <p class="card-text">&#8377;<%=list.price.toLocaleString("en-IN")%>/night <span class="tax"> + 18% GST</span></p>
+                    </div>
+                </div>
+            </a>
+        <%}%>
+    </div>
+    
+</body>
+<script>
+    let taxDisplay = document.querySelector('.tax-info')
+    console.log(taxDisplay)
+    let label = document.querySelector(".form-check-label")
+        taxDisplay.addEventListener('click', (e) => {
+            let tax = document.querySelectorAll(".tax");
+            if (e.target.checked) {
+                for (ele of tax) {
+                    ele.style.display = 'inline';
+                    label.textContent="Display Total w/o Taxes"
+                }
+               
+            } else {
+                if (!e.target.checked) {
+                    for (ele of tax) {
+                        ele.style.display = 'none'
+                        label.textContent="Display Total After Taxes"
+                    }
+                }
+            }
+        })
+</script>

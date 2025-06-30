@@ -1,0 +1,59 @@
+
+<style>
+.search{
+  margin: auto;
+}
+
+.form-control,.btn{
+  height: 2rem;
+}
+.button-btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border:1px solid #FF385C;
+  background-color: #FF385C;
+  color: white;
+  margin-left:0.5rem;
+  border-radius: 5px;
+}
+</style>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
+    <a class="navbar-brand d-flex align-items-center gap-2" style="color:#FF385C" href="/listings">
+      <i class="fa-solid fa-mountain-sun fa-lg text-accent"></i>
+      <span class="fw-bold" style="letter-spacing: 1px;"></span>
+    </a>
+    <span class="navbar-brand-name mr-5" ></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+      <div class="search ">
+        <form class="d-flex" role="search" method="get" action="/listings/search">
+          <input class="form-control me-2 search-input" type="search" placeholder="Search by Country" aria-label="Search" name="filter">
+          <button class="button-btn " type="submit">Search</button>
+        </form>
+      </div>
+      <div>
+        
+      </div>
+      <div class="navbar-nav ml-auto ">
+        <a class="nav-link create" style="color: dodgerblue;" href="/listings/new">Airbnb your home</a>
+        <% if (!currentUser){%>
+          <a class="nav-link active" href="/signup"><b>Sign Up </b><span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <%}%>
+        
+        <% if (currentUser){%>
+        <a class="nav-link" href="/logout"><b>Logout</b> </a>
+        <%}%>
+      </div>
+    </div>
+     
+    </div>
+  </nav>

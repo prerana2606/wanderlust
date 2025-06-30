@@ -1,127 +1,139 @@
 body{
-    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-family:'Plus Jakarta Sans' !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    flex: 1;
 }
-
 .container{
-    flex:1;
+    flex: 1;
 }
-
-/* Navbar */
 .navbar{
     height:5rem;
-    background-color: white;
+    border-bottom:2px solid rgb(209, 205, 205);
 }
-
-.fa-compass{
-    color:#fe424d;
-    font-size: 2rem;
+.navbar-brand-name{
+    color:#FF385C;
+    font-family: 'Dancing Script';
+    font-size: xx-large;
+    text-decoration: none !important;
 }
 
 .nav-link{
-    color:#222222 !important;
+    color:black  !important;
+    font-weight: 600;
+}
+.create{
+    color:dodgerblue !important;
+    font-weight: 600;
+}
+.fa-compass{
+    color: #FF385C;
+    font-size: 2rem;
 }
 
-/* Footer */
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+/* footer*/
+.footer{
+    background-color: rgb(217, 217, 217);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.ft-social{
     width: 100%;
-}
-
-.f-info-links a{
-    text-decoration: none;
-    color:#222222;
-}
-
-.f-info-links a:hover{
-    text-decoration: underline;
-}
-
-.f-info{
     text-align: center;
-    height:8rem;
-    background-color: #ebebeb;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: center;
-    align-items: space-evenly;
 }
-
-.f-info-links, 
-.f-info-socials, 
-.f-info-brand{
+.ft-terms{
+    width: 100%;
+    text-align: center;
+}
+.company{
     width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
-.f-info-socials i{
-    font-size: 1.2rem;
-    margin-right: 1rem;
+/* cards */
+.cards{
+    margin-bottom:1rem  !important;
 }
-
-
-/* card */
-.listing-card{
+.card{
+    margin-top: 2rem;
     border:none !important;
-    margin-bottom: 2rem;
+
 }
 
+.card-body{
+    padding: 0px !important;
+    
+}
 .card-img-top{
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
-
-.card-body{
-    padding:0 !important;
-} 
-
-.card-text p{
+.card-text{
     font-weight: 400 !important;
+}
+.card-title{
+    font-size: medium;
 }
 
 .listing-link{
-    text-decoration: none;
+    text-decoration: none !important;
+    color:black;
 }
 
-/* Card effect */
+/* card-effect*/
 .card-img-overlay{
-    opacity:0;
+    opacity: 0;
 }
-
 .card-img-overlay:hover{
-    opacity:0.2;
-    background-color: white;
+    opacity: 0.3;
+    background-color: aliceblue;
+}
+/* new page */
+.add{
+    background-color: #FF385C !important;
+    border: none;
+    color:white;
+}
+/* edit page */
+.update{
+    background-color: #FF385C !important;
+    border: none;
+    color:white;
+    border-radius: 0.5rem;
+}
+/* show page */
+.card-img-top{
+    height:30vh!important;
+}
+.card-title{
+    font-size: large !important;
+    font-weight: 800 !important;
+}
+/* .card-bobackground-color: #FF385C !important;
+    border: none;
+    color:white;
+    border-radius: 0.5rem;rd-text{
+    font-size: medium !important;
+    font-weight: 450 !important;
+} */
+.edit,.delete{
+    background-color: #FF385C !important;
+    border: none;
+    color:white;
+    border-radius: 0.5rem;
 }
 
-/* New Page */
-.add-btn{
-    background-color:#fe424d !important;
-    border: none !important;
+/* review */
+.review-card{
+    border: 1px solid grey;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 5px !important;
 }
-
-/* Edit Page */
-.edit-btn{
-    background-color: #fe424d !important;
-    border: none !important;
-}
-
-/* Show Page */
-.show-img{
-    height: 30vh;
-}
-
-.btns{
-    display: flex;
-}
-
-.show-card{
-    padding-left: 0;
-    padding-right: 0;
+.card-body-review{
+    padding:0.5rem;
 }
